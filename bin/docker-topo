@@ -420,6 +420,7 @@ class CEOS(Device):
             self.command += " systemd.setenv=CEOS=1"
             self.command += " systemd.setenv=container=docker"
             self.command += " systemd.setenv=EOS_PLATFORM=ceoslab"
+            self.command += " systemd.setenv=MGMT_INTF=eth0"
         self.entry_cmd = 'docker exec -it {} Cli'.format(self.name)
         # Overriding extra variables
         self.volumes = self._get_config()
