@@ -598,8 +598,9 @@ class Veth(object):
                 if int(i.address[1], 16) & 0x02 > 0:
                     # MLAG mechanism uses the "locally administered bit" from the MAC address
                     # and practically, the Mlag agent will core when set.
-                    i.address = i.address[0] + "0" + i.address[2:]
-                    i.commit()
+                    LOG.debug(f"Changing interface mac from {i.address}")
+                    i.set_address(i.address[0] + "0" + i.address[2:]).commit()
+                    LOG.debug(f"to {i.address}")
                 i.up()
  
 
