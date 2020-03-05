@@ -413,13 +413,14 @@ class CEOS(Device):
                                "SKIP_ZEROTOUCH_BARRIER_IN_SYSDBINIT": 1,
                                "INTFTYPE": "eth"
                            }
-        if ceos_version == "latest" or version.parse(ceos_version) > version.parse("4.22.2F"):
+        if version.parse(ceos_version) > version.parse("4.22.2F"):
             self.command += " systemd.setenv=INTFTYPE=eth"
             self.command += " systemd.setenv=ETBA=1"
             self.command += " systemd.setenv=SKIP_ZEROTOUCH_BARRIER_IN_SYSDBINIT=1"
             self.command += " systemd.setenv=CEOS=1"
             self.command += " systemd.setenv=container=docker"
             self.command += " systemd.setenv=EOS_PLATFORM=ceoslab"
+        if ceos_version == "latest" or version.parse(ceos_version) > version.parse("4.23.0F"):
             self.command += " systemd.setenv=MGMT_INTF=eth0"
         self.entry_cmd = 'docker exec -it {} Cli'.format(self.name)
         # Overriding extra variables
